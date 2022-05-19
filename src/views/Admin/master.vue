@@ -179,7 +179,17 @@ Anything you want
 import adminLte from "admin-lte";
 import('../../../node_modules/admin-lte/dist/css/adminlte.min.css');
 import('../../../node_modules/admin-lte/plugins/fontawesome-free/css/all.css');
+import('../../../node_modules/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');
+import('../../../node_modules/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');
+import('../../../node_modules/admin-lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css');
+import('../../../node_modules/admin-lte/plugins/datatables/jquery.dataTables.min.js');
+import('../../../node_modules/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');
+import('../../../node_modules/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js');
+import('../../../node_modules/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');
+import('../../../node_modules/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min.js');
+import('../../../node_modules/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js');
 import('../../../node_modules/admin-lte/dist/js/adminlte.min.js');
+import('../../../node_modules/admin-lte/dist/js/pages/dashboard.js');
 import sidebar from './sidebar.vue'
 export default {
    components:{
@@ -189,7 +199,8 @@ export default {
  logout(){
         localStorage.removeItem('AToken')
         this.$router.push({name: 'login'})
-    }
+    },
+
  
    },
     mounted() {
@@ -197,6 +208,23 @@ export default {
         if(!token){
             this.$router.push('/login')
         }
+       
     },
-}
+};
+//   $(document).ready(function() {
+//     $("#example1").DataTable({
+//       "responsive": true, "lengthChange": false, "autoWidth": false,
+//       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+//     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+//     $('#example2').DataTable({
+//       "paging": true,
+//       "lengthChange": false,
+//       "searching": false,
+//       "ordering": true,
+//       "info": true,
+//       "autoWidth": false,
+//       "responsive": true,
+//     })
+//   });
+
 </script>

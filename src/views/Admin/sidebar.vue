@@ -74,7 +74,7 @@ sample data
 <router-link to="/resort" class="nav-link">
 <i class="nav-icon fas fa-user"></i>
 <p>
-Resrort
+Resort
 </p>
 </router-link>
 </li>

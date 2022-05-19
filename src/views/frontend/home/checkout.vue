@@ -1,39 +1,13 @@
 <template>
-  <div class="containter">
-    <div class="row">
-    <div class="col-md-3" v-for="resort in resorts" :key="resort.id">
-      <div class="card" >
-        <img :src="'http://localhost:8000/'+resort.resort_image" class="card-img-top" id="imgH"  alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">{{resort.resort_name}}</h5>
-          <p class="card-text">
-            {{resort.resort_location}}
-          </p>
-        </div>
-        <div class="card-footer">
-           <router-link :to="{name: 'checkout', params:{id: resort.id}}" class="btn btn-outline-warning">Book Now</router-link>
-         <!-- <div @click="BookModal(resort.id)" class="btn btn-outline-warning">Book Now</div> -->
-        
-      
-        </div>
-      </div>
-</div>
-</div>
-
-  <!--checkout Modal -->
-        <!-- <div class="modal fade" id="resort_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog " role="document">
-                <div class="modal-content">
-                     <form @submit.prevent="resort_update(id)">
-                        <div class="modal-header">
+    <div class="card col-md-8 offset-2">
+       <form @submit.prevent="AddBookig()">
+                       
                      
-                            <h5  class="modal-title text-success" >New Reservation</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                            <h5  class="text-success card-header" >New Reservation</h5>
+                            
+                       
 
-                         <div class="modal-body">
+                         <div class="card-body">
                                 <div class="form-group">
                                     <label for="cus_name">Customer Name</label>
                                     <input type="text" name="cus_name" class="form-control" id="cus_name" v-model="form.cus_name" :class="{ 'is-invalid': form.errors.has('cus_name') }" >
@@ -66,18 +40,15 @@
                                    <div v-if="form.errors.has('end_date')" v-html="form.errors.get('end_date')" />
                                 </div>
                                 </div>
-                                 <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                 <div class="card-footer">
+                   
                             <button  type="submit" :disabled="form.busy" class="btn btn-primary">Book Now</button>
                         </div>
  
-                    </form>
-                </div>
-            </div>
-        </div> -->
-    
-  </div>
+                    </form> 
+    </div>
 </template>
+
 <script>
 import Form from 'vform'
 export default {
@@ -85,47 +56,29 @@ export default {
   return {
     errors: {},
     form: new Form({
-                 id: '',
+                
                 cus_name: null,
                 cus_phone: null,
                 cus_email: null,
                 cus_address: null,
                 start_date: null,
                 end_date: null,
-                status: '',
                 
             }),
-    resorts:[],
   }
 },
 methods: {
  
-  resort_update(id){
+   AddBookig(){
+  	  let id = this.$route.params.id
+       axios.post('/booking/'+id,this.form)
+       .then(() => {
+        this.$router.push({ name: 'home'})
+       })
+       .catch(error =>this.errors = error.response.data.errors)
+     },
+  
+},
 
-  axios.post('booking/'+id,this.form)
-  .then(() => {
-          this.$router.push({ name: 'home'})
-          $('#resort_modal').modal('hide')
-          })
-  .catch(error =>this.errors = error.response.data.errors)
-         
-              
-        },
-   allresorts(){
-            axios.get('resort')
-            .then(res=>{
-                this.resorts = res.data;
-                console.log(res);
-            })
-        },
-},
-mounted() {
-  this.allresorts();
-},
 }
 </script>
-<style>
-#imgH{
-  max-height: 240px;
-}
-</style>

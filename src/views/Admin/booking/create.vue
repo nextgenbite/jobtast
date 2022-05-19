@@ -22,16 +22,16 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="category_name" class="col-sm-2 col-form-label">Start</label>
+                  <label for="start_date" class="col-sm-2 col-form-label">Start</label>
                   <div class="col-sm-10">
-                    <input type="date"  v-model="form.category_name" class="form-control" name="category_name" id="category_name"  placeholder="Enter Category Name">
+                    <input type="date"  v-model="form.start_date" class="form-control" name="start_date" id="start_date" >
                     <!-- <has-error :form="form" field="category_name"></has-error> -->
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="category_name" class="col-sm-2 col-form-label">End Date</label>
+                  <label for="end_date" class="col-sm-2 col-form-label">End Date</label>
                   <div class="col-sm-10">
-                    <input type="date"  v-model="form.category_name" class="form-control" name="category_name" id="category_name"  placeholder="Enter Category Name">
+                    <input type="date"  v-model="form.end_date" class="form-control" name="end_date" id="end_date">
                     <!-- <has-error :form="form" field="category_name"></has-error> -->
                   </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="form-group row">
              
                   <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-primary">Add Category</button>
+                    <button type="submit" class="btn btn-primary">Add Booking</button>
                   </div>
                 </div>
         </form>
@@ -65,7 +65,7 @@ export default {
         booking_add(){
               axios.post('/reservation',this.form)
           .then(()=>{
-              this.$router.push({name: 'reservation'})
+              this.$router.push({name: 'booking'})
             //   Notification.success()
           })
           .catch(error=> this.errors =error.response.data.error)

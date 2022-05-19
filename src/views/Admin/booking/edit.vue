@@ -1,50 +1,46 @@
 <template>
-     <div>
-        <h2 class="text-center mb-3">Category Add</h2>
-         <form @submit.prevent="categoryUpdate()">
+       <div>
+        <h2 class="text-center mb-3">Booking Update</h2>
+         <form @submit.prevent="booking_add()">
                 <div class="form-group row">
-                  <label for="category_name" class="col-sm-2 col-form-label">Category name</label>
+                  <label for="customer_name" class="col-sm-2 col-form-label">Customer name</label>
                   <div class="col-sm-10">
-                    <input type="text"  v-model="form.category_name" class="form-control" name="category_name" id="category_name"  placeholder="Enter Category Name">
+                      <select class="form-control" id="customer_id" v-model="form.customer_id" >
+                          <option selected disabled>------Select a Customer------</option>
+                          <option v-for="(customer, index) in customers" :key="index" :value="customer.id" >{{customer.cus_name}}</option>
+                      </select>
                     <!-- <has-error :form="form" field="category_name"></has-error> -->
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label for="category_description" class="col-sm-2 col-form-label">Category Description</label>
+                  <label for="resort_name" class="col-sm-2 col-form-label">Resort</label>
                   <div class="col-sm-10">
-                   <textarea name="category_description" v-model="form.category_description"   class="form-control" id="category_description" cols="4" rows="4"></textarea>
-                   <!-- <has-error :form="form" field="category_description"></has-error> -->
+                                          <select class="form-control" id="resort_id" v-model="form.resort_id" >
+                          <option selected disabled>------Select a Resort------</option>
+                          <option v-for="(resort, index) in resorts" :key="index" :value="resort.id" >{{resort.resort_name}}</option>
+                      </select>
                   </div>
                 </div>
-                
-                <fieldset class="form-group">
-                  <div class="row">
-                    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <input class="form-check-input" v-model="form.publication_status"  type="radio" name="publication_status" id="publication_status" value="1" checked>
-                        <!-- <has-error :form="form" field="publication_status"></has-error> -->
-                        <label class="form-check-label"  for="publication_status">
-                         Published
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" v-model="form.publication_status" type="radio" name="publication_status"  id="unpublished" value="0">
-                        <!-- <has-error :form="form" field="publication_status"></has-error> -->
-                        <label class="form-check-label" for="unpublished">
-                         Unpublished
-                        </label>
-                      </div>
-                    </div>
+                <div class="form-group row">
+                  <label for="start_date" class="col-sm-2 col-form-label">Start</label>
+                  <div class="col-sm-10">
+                    <input type="date"  v-model="form.start_date" class="form-control" name="start_date" id="start_date" >
+                    <!-- <has-error :form="form" field="category_name"></has-error> -->
                   </div>
-                </fieldset>
+                </div>
+                <div class="form-group row">
+                  <label for="end_date" class="col-sm-2 col-form-label">End Date</label>
+                  <div class="col-sm-10">
+                    <input type="date"  v-model="form.end_date" class="form-control" name="end_date" id="end_date">
+                    <!-- <has-error :form="form" field="category_name"></has-error> -->
+                  </div>
+                </div>
+          
                
                 <div class="form-group row">
-                  <div class="col-sm-2">
-                   
-                  </div>
-                  <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Add Category</button>
+             
+                  <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Update Booking</button>
                   </div>
                 </div>
         </form>
@@ -55,6 +51,8 @@ import axios from 'axios'
 export default {
     data() {
         return {
+          customers:[],
+          resorts:[],
             form:{
                category_name: null, 
                category_description: null, 
@@ -72,7 +70,21 @@ export default {
             //   Notification.success()
           })
           .catch(error=> this.errors =error.response.data.error)
-        }
+        },
+        allCustomer(){
+          axios.get('customer')
+            .then(res=>{
+                this.customers = res.data;
+                console.log(res);
+            })
+        },
+        allResort(){
+           axios.get('resort')
+            .then(res=>{
+                this.resorts = res.data;
+                console.log(res);
+            })
+        },
     },
     created(){
         // axios.get('/category/'+this.$route.params.id)
@@ -81,9 +93,12 @@ export default {
         // console.log(response.data);
         // })
             let id = this.$route.params.id
-            axios.get('category/'+id)
+            axios.get('reservation/'+id)
             .then(({data}) => (this.form = data))
             .catch(console.log('error'))
+
+      this.allCustomer();
+      this.allResort();
     }
 }
 </script>

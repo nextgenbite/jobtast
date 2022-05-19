@@ -12,6 +12,11 @@ const routes = [
         name: 'home',
         component: () => import('../views/frontend/home/home.vue'), 
       },
+      {
+        path: '/checkout/:id',
+        name: 'checkout',
+        component: () => import('../views/frontend/home/checkout.vue'), 
+      },
       // {
       //   path: '/login',
       //   name: 'login',

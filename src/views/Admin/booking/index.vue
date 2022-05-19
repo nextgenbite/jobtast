@@ -1,26 +1,27 @@
 <template>
     <div>
-        <h2 class="text-center mb-3">All Categories</h2>
-        <table class="table table-bordered">
+        <h2 class="text-center mb-3">Booking List</h2>
+        <table class="table table-bordered" id="example1">
             <thead>
                 <tr>
-                    <th scope="col">Sn</th>
-                    <th scope="col">Category Name</th>
-                    <th scope="col">Category Description</th>
-                    <th scope="col">publication status</th>
+                    <th scope="col">Customer name</th>
+                    <th scope="col">Resort Name</th>
+                    <th scope="col">Booking Start Date</th>
+                    <th scope="col">Booking End Date</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="category, index in categories" v-bind:key="category.id" >
-                    <th scope="row">{{index+1}}</th>
-                    <td>{{category.category_name}}</td>
-                    <td>{{category.category_description}}</td>
-                    <td >{{category.publication_status}}</td>
+                <tr v-for="booking in bookings" v-bind:key="booking.id" >
+                    
+                    <td>{{booking.customer.cus_name}}</td>
+                    <td>{{booking.resort.resort_name}}</td>
+                    <td >{{booking.start_date}}</td>
+                    <td >{{booking.end_date}}</td>
                     <td>
                         <div class="btn-group">
-                            <router-link :to="{name: 'edit-category', params:{id: category.id}}" class="btn btn-outline-warning">Edit</router-link>
-                            <button @click="deleteCategory(category.id)" class="btn btn-outline-danger">Delete</button>
+                            <router-link :to="{name: 'edit-booking', params:{id: booking.id}}" class="btn btn-outline-warning">Edit</router-link>
+                            <button @click="deleteCategory(booking.id)" class="btn btn-outline-danger">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -33,26 +34,26 @@ import axios from 'axios'
 export default {
     data() {
         return {
-            categories:[]
+            bookings:[]
         }
     },
     methods: {
-        AllCategories(){
-            axios.get('category')
+        AllBooking(){
+            axios.get('reservation')
             .then(res=>{
-                this.categories = res.data
+                this.bookings = res.data
             })
         },
         deleteCategory(id){
-           axios.delete('category/'+id)
+           axios.delete('reservation/'+id)
            .then(res=>{
-               this.AllCategories();
-                this.$router.push({name: 'category'})
+               this.AllBooking();
+                this.$router.push({name: 'booking'})
            }) 
         }
     },
     mounted() {
-        this.AllCategories();
+        this.AllBooking();
     },
 }
 </script>

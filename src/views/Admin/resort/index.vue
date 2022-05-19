@@ -1,7 +1,9 @@
 <template>
-    <div>
-         <div class="btn btn-outline-success float-right" @click="addresortModal">Add Resort</div>
-        <table class="table table-border table-hover">
+    <div>        
+      <div class="card">
+          <div class="card-header"><div class="btn btn-outline-success float-right" @click="addresortModal">Add Resort</div>
+         <br></div>
+            <table class="table table-border table-hover" id="example1">
            <thead>
                <tr>
                    <th>Id</th>
@@ -13,7 +15,7 @@
                </tr>
            </thead>
            <tbody>
-               <tr v-for="(resort, index) in resorts.data" :key="index">
+               <tr v-for="resort in resorts" :key="resort.id">
                    <td scope="row">{{resort.id}}</td>
                    <td>{{resort.resort_name}}</td>
                    <td>{{resort.resort_location}}</td>
@@ -33,7 +35,8 @@
                </tr>
            </tbody>
        </table>
-       <Pagination :data="resorts" @pagination-change-page="getResults" />
+      </div>
+       <!-- <Pagination :data="resorts" @pagination-change-page="getResults" /> -->
    <!--resort Modal -->
         <div class="modal fade" id="resort_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog " role="document">
@@ -117,7 +120,7 @@
 
 <script>
 import Form from 'vform'
-import LaravelVuePagination from 'laravel-vue-pagination';
+// import LaravelVuePagination from 'laravel-vue-pagination';
 export default {
     data() {
         return {
@@ -136,7 +139,7 @@ export default {
         }
     },
     components: {
-        'Pagination': LaravelVuePagination
+        // 'Pagination': LaravelVuePagination
     },
     methods:{
         allresorts(){
@@ -168,12 +171,12 @@ export default {
         },
 
             // Our method to GET results from a Laravel endpoint
-        getResults(page = 1) {
-            axios.get('resort?page=' + page)
-                .then(response => {
-                    this.resorts = response.data;
-                });
-        },
+        // getResults(page = 1) {
+        //     axios.get('resort?page=' + page)
+        //         .then(response => {
+        //             this.resorts = response.data;
+        //         });
+        // },
          addresortModal(){
               this.editMode = false;
               this.form.reset();
@@ -215,7 +218,7 @@ export default {
     created() {
         this.allresorts();
         // Fetch initial results
-        this.getResults();
+        // this.getResults();
     },
 }
 </script>
