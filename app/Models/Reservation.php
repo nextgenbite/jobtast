@@ -16,10 +16,10 @@ class Reservation extends Model
     ];
     public function customer()
     {
-        return $this->belongsTo(CustomerController::class, 'customer_id', 'id');
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
     public function resort()
     {
-        return $this->belongsTo(ResortController::class, 'resort_id', 'id');
+        return $this->belongsTo(Resort::class, 'resort_id', 'id');
     }
 }

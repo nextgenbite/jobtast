@@ -7,6 +7,7 @@ use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\CustomerController;
 use App\Http\Controllers\API\ResortController;
 use App\Http\Controllers\API\ReservationController;
+use App\Http\Controllers\API\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ use App\Http\Controllers\API\ReservationController;
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
+
+Route::post('booking/{id}', [HomeController::class, 'AddBooking']);
    
 Route::middleware('auth:api')->group( function () {
     Route::resource('customer', CustomerController::class);

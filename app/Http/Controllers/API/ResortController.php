@@ -16,7 +16,7 @@ class ResortController extends Controller
      */
     public function index()
     {
-         return Resort::latest()->paginate(5);
+         return Resort::latest()->get();
     }
 
     /**

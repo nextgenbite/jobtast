@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use App\Models\Customer;
 
 class ReservationController extends Controller
 {
@@ -15,7 +16,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return Reservation::all();
+        return Reservation::with('Customer:id,cus_name', 'Resort:id,resort_name')->get();
     }
 
     /**
@@ -52,7 +53,7 @@ class ReservationController extends Controller
      */
     public function show($id)
     {
-        //
+       return Reservation::findOrFail($id);
     }
 
     /**
