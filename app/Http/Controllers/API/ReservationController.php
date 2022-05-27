@@ -16,7 +16,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return Reservation::with('Customer:id,cus_name', 'Resort:id,resort_name')->get();
+        return Reservation::with('Customer:id,cus_name', 'resort:id,resort_name')->get();
     }
 
     /**

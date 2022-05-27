@@ -10,6 +10,10 @@ use App\Models\Resort;
 
 class HomeController extends Controller
 {
+    public function getResort()
+    {
+       return Resort::whereStatus(1)->latest()->get();
+    }
     public function AddBooking(Request $request, $id)
     {
        $customer = Customer::insertGetId([
