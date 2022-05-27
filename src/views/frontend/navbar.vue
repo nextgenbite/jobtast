@@ -74,10 +74,10 @@ export default {
         this.$router.push({name: 'login'})
     }
   },
-  mounted(){
-    if (!this.token) {
-      this.$router.push({name: 'login'})
-    } 
-  }
+  // mounted(){
+  //   if (!this.token) {
+  //     this.$router.push({name: 'login'})
+  //   } 
+  // }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="text-center mb-3">Booking List</h2>
-        <table class="table table-bordered" id="example1">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th scope="col">Customer name</th>

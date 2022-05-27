@@ -11,8 +11,8 @@
           </p>
         </div>
         <div class="card-footer">
-           <router-link :to="{name: 'checkout', params:{id: resort.id}}" class="btn btn-outline-warning">Book Now</router-link>
-         <!-- <div @click="BookModal(resort.id)" class="btn btn-outline-warning">Book Now</div> -->
+           <!-- <router-link :to="{name: 'checkout', params:{id: resort.id}}" class="btn btn-outline-warning">Book Now</router-link> -->
+         <div @click="BookModal(resort)" class="btn btn-outline-warning">Book Now</div>
         
       
         </div>
@@ -21,10 +21,10 @@
 </div>
 
   <!--checkout Modal -->
-        <!-- <div class="modal fade" id="resort_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="resort_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog " role="document">
                 <div class="modal-content">
-                     <form @submit.prevent="resort_update(id)">
+                     <form @submit.prevent="resort_update()">
                         <div class="modal-header">
                      
                             <h5  class="modal-title text-success" >New Reservation</h5>
@@ -74,7 +74,7 @@
                     </form>
                 </div>
             </div>
-        </div> -->
+        </div>
     
   </div>
 </template>
@@ -94,29 +94,33 @@ export default {
                 end_date: null,
                 status: '',
                 
+                
             }),
     resorts:[],
   }
 },
 methods: {
  
-  resort_update(id){
-
-  axios.post('booking/'+id,this.form)
-  .then(() => {
-          this.$router.push({ name: 'home'})
-          $('#resort_modal').modal('hide')
-          })
-  .catch(error =>this.errors = error.response.data.errors)
-         
-              
+  resort_update(){
+this.form.post("booking/"+this.form.id)
+            .then(response =>{
+                this.allresorts();
+                $('#resort_modal').modal('hide')
+               
+            })
+        
         },
    allresorts(){
-            axios.get('resort')
+            axios.get('getresort')
             .then(res=>{
                 this.resorts = res.data;
                 console.log(res);
             })
+        },
+         BookModal(resort){
+             this.form.reset();
+              $('#resort_modal').modal('show');
+              this.form.fill(resort);
         },
 },
 mounted() {
